@@ -39,10 +39,16 @@ public class TextBox : MonoBehaviour
                 switch (option)
                 {
                     case "<Click>":
+#if UNITY_EDITOR
                         if (!Input.GetMouseButton(0))
+#endif
+
+#if UNITY_ANDROID
+                        if(!(Input.touchCount > 0))
+#endif
                             i -= 8;
                         else
-                            i--;//防止检测后count++(cs:70)
+                            i--;//防止检测完成后指针再加1(cs:70),这里的i是引用变量
                         Debug.Log(istring[i % istring.Length]);
                         break;
                     case "<Clear>":
